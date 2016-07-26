@@ -32,6 +32,20 @@ func (s *stepModifyInstance) Run(state multistep.StateBag) multistep.StepAction 
 		}
 	}
 
+	if config.AMIEnaNetworking {
+		ui.Say("Enabling Ena Networking...")
+		val := true
+		_, err := ec2conn.ModifyInstanceAttribute(&ec2.ModifyInstanceAttributeInput{
+			InstanceId:      instance.InstanceId,
+			EnaSupport: 	 &ec2.AttributeBooleanValue{Value: &val},
+		})
+		if err != nil {
+			err := fmt.Errorf("Error enabling Ena Networking on %s: %s", *instance.InstanceId, err)
+			state.Put("error", err)
+			ui.Error(err.Error())
+			return multistep.ActionHalt
+		}
+	}
 	return multistep.ActionContinue
 }
 

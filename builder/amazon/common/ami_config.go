@@ -18,6 +18,7 @@ type AMIConfig struct {
 	AMISkipRegionValidation bool              `mapstructure:"skip_region_validation"`
 	AMITags                 map[string]string `mapstructure:"tags"`
 	AMIEnhancedNetworking   bool              `mapstructure:"enhanced_networking"`
+	AMIEnaNetworking        bool              `mapstructure:"ena_networking"`
 	AMIForceDeregister      bool              `mapstructure:"force_deregister"`
 }
 

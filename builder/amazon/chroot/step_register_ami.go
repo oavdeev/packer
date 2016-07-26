@@ -54,6 +54,11 @@ func (s *StepRegisterAMI) Run(state multistep.StateBag) multistep.StepAction {
 		registerOpts.SriovNetSupport = aws.String("simple")
 	}
 
+	if config.AMIEnaNetworking {
+		val := true
+		registerOpts.EnaSupport = &val
+	}
+
 	registerResp, err := ec2conn.RegisterImage(registerOpts)
 	if err != nil {
 		state.Put("error", fmt.Errorf("Error registering AMI: %s", err))

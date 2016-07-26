@@ -16,6 +16,7 @@ import (
 type StepSourceAMIInfo struct {
 	SourceAmi          string
 	EnhancedNetworking bool
+	EnaNetworking      bool
 }
 
 func (s *StepSourceAMIInfo) Run(state multistep.StateBag) multistep.StepAction {
@@ -44,6 +45,13 @@ func (s *StepSourceAMIInfo) Run(state multistep.StateBag) multistep.StepAction {
 	// See http://goo.gl/icuXh5
 	if s.EnhancedNetworking && *image.VirtualizationType != "hvm" {
 		err := fmt.Errorf("Cannot enable enhanced networking, source AMI '%s' is not HVM", s.SourceAmi)
+		state.Put("error", err)
+		ui.Error(err.Error())
+		return multistep.ActionHalt
+	}
+
+	if s.EnaNetworking && *image.VirtualizationType != "hvm" {
+		err := fmt.Errorf("Cannot enable ena networking, source AMI '%s' is not HVM", s.SourceAmi)
 		state.Put("error", err)
 		ui.Error(err.Error())
 		return multistep.ActionHalt

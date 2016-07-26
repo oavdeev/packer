@@ -164,6 +164,7 @@ func (b *Builder) Run(ui packer.Ui, hook packer.Hook, cache packer.Cache) (packe
 		&awscommon.StepSourceAMIInfo{
 			SourceAmi:          b.config.SourceAmi,
 			EnhancedNetworking: b.config.AMIEnhancedNetworking,
+			EnaNetworking:      b.config.AMIEnaNetworking,
 		},
 		&StepCheckRootDevice{},
 		&StepFlock{},

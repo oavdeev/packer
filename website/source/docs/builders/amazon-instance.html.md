@@ -166,6 +166,10 @@ builder.
     networking (SriovNetSupport) on HVM-compatible AMIs. If true, add
     `ec2:ModifyInstanceAttribute` to your AWS IAM policy.
 
+-   `ena_networking` (boolean) - Enable elastic network adapter
+    (EnaSupport) on HVM-compatible AMIs. If true, add
+    `ec2:ModifyInstanceAttribute` to your AWS IAM policy.
+
 -   `force_deregister` (boolean) - Force Packer to first deregister an existing
     AMI if one with the same name already exists. Default `false`.
 
